@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Register</title>
+</head>
+<body>
+    <form method="post">
+        <div class="mb-3">
+          <label for="nameInput" class="form-label">Name</label>
+          <input type="text" name="nameInput" class="form-control" id="nameInput" placeholder="name">
+        </div>
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">Email address</label>
+          <input type="email" name="emailInput" class="form-control" id="emailInput" placeholder="name@example.com">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <ul>
+        {% for person in people %}
+            <li>{{ person }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
