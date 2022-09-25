@@ -20,24 +20,19 @@ class Person(Base):
 
 app = Flask(__name__)
 app.secret_key = "secret"
-engine = create_engine('postgresql://postgres@web-server.c4eriylmfwmr.sa-east-1.rds.amazonaws.com:5432/web_server')
-
-people = []
+engine = create_engine('postgresql://postgres:56205340.Lr@web-server.c4eriylmfwmr.sa-east-1.rds.amazonaws.com:5432/web_server')
 
 
-def save_user(user: Person):
-    with Session(engine) as session:
-        session.add(user)
-        session.commit()
-        session.close()
+def get_users(session: Session):
+    return session.query(Person).all()
 
-
-def save_user_mock(user: Person):
-    people.append(user)
-
+def save_user(user: Person, session: Session):
+    session.add(user)
+    session.commit()
 
 @app.route('/', methods=('GET', 'POST'))
 def register_form():  # put application's code here
+    session=Session(engine)
     if request.method == 'POST':
         name = request.form['nameInput']
         email = request.form['emailInput']
@@ -46,11 +41,10 @@ def register_form():  # put application's code here
             flash('All data required!')
         else:
             user = Person(name=name, email=email)
-            save_user(user=user)
-            return render_template('register.html', people=people)
-
-    return render_template('register.html')
+            save_user(user=user, session=session)
+    people = get_users(session)
+    return render_template('register.html', people=people)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
