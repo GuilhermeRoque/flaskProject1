@@ -20,7 +20,7 @@ class Person(Base):
 
 app = Flask(__name__)
 app.secret_key = "secret"
-engine = create_engine('postgresql://postgres:56205340.Lr@web-server.c4eriylmfwmr.sa-east-1.rds.amazonaws.com:5432/web_server')
+engine = create_engine('postgresql://postgres@web-server.c4eriylmfwmr.sa-east-1.rds.amazonaws.com:5432/web_server')
 
 
 def get_users(session: Session):
